@@ -26,15 +26,6 @@ define(["dojo/topic",
 			// Replace &nbsp; by a space space is not the only character of a tag
 			//  i.e. <p>&nbsp;<p> or <p class="foo">&nbsp;</p> is not changed but all others &nbsp; are replaced by a space
 			var str2 = str.replace(/(?!>)(&nbsp;)(?!<\/)/g, ' ');
-
-			// Add tabindex to not empty elements
-			str2 = $(str2);
-			str2.find('.description > *').each(function(i, elem){
-				var $elem = $(elem);
-				if ( $elem.html() != "&nbsp;" )
-					$elem.attr("tabindex", "0");
-			});
-
 			return str2;
 		}
 

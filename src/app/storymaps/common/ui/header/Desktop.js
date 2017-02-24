@@ -51,7 +51,7 @@ define(["lib-build/css!./Desktop",
 							paddingTop: 30,
 							height: 90
 						});
-						container.find('.subtitle').css("height", 32).attr("tabindex", "-1");
+						container.find('.subtitle').css("height", 32);
 					}
 				}
 
@@ -127,41 +127,10 @@ define(["lib-build/css!./Desktop",
 				HeaderHelper.toggleSocialBtnAppSharing(container, disable);
 			};
 
-			/*
-			 * 508 tab navigation
-			 */
-
-			this.focus = function(p)
-			{
-				if ( ! p || p.area == "social" ) {
-					$("#headerDesktop .shareIcon").attr("tabindex", "0");
-
-					if ( $("#headerDesktop .linkContainer a").length )
-						$("#headerDesktop .linkContainer a").attr("tabindex", "0")[0].focus();
-					else if ( $("#headerDesktop .linkContainer").length )
-						$("#headerDesktop .linkContainer").attr("tabindex", "0")[0].focus();
-					else if ( $("#headerDesktop .shareIcon:visible").length )
-						$("#headerDesktop .shareIcon")[0].focus();
-					else
-						focusTitleOrSubtitle();
-				}
-				else {
-					focusTitleOrSubtitle();
-				}
-			};
-
 			this.enableAutoplay = function()
 			{
 				HeaderHelper.disableSocialBtnAppSharingAutoplay(container);
 			};
-
-			function focusTitleOrSubtitle()
-			{
-				if ( $("#headerDesktop .subtitle:visible").length )
-					$("#headerDesktop .subtitle")[0].focus();
-				else
-					$("#headerDesktop .title")[0].focus();
-			}
 
 			/*
 			 * Styling
