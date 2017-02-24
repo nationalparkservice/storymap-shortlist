@@ -425,8 +425,8 @@
 		 */
 		grunt.registerTask('default', [
 			// Comment out to disable code linting
-			//'jshint:common',
-			//'jshint:tpl',
+			'jshint:common',
+			'jshint:tpl',
 			'jshint:nls-en',
 			'jshint:nls-all',
 			// Initialize deploy folder
