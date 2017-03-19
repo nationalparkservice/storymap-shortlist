@@ -12,6 +12,7 @@ define(["lib-build/tpl!./BuilderView",
 		"storymaps/common/builder/media/image/FileUploadHelper",
 		"./BuilderHelper",
 		"storymaps/common/utils/WebMapHelper",
+    "esri/arcgis/utils",
 		"esri/dijit/BasemapGallery",
 		// Web map picker
 		"storymaps/common/builder/browse-dialog/js/BrowseIdDlg",
@@ -65,6 +66,7 @@ define(["lib-build/tpl!./BuilderView",
 		FileUploadHelper,
 		BuilderHelper,
 		WebMapHelper,
+    arcgisUtils,
 		BasemapGallery,
 		// Web map picker
 		BrowseIdDlg,
@@ -213,11 +215,20 @@ define(["lib-build/tpl!./BuilderView",
 				if(basemapGallery)
 					basemapGallery.destroyRecursive(true);
 
+        var galleryConfig = {
+          map: app.map,
+          portalUrl: arcgisUtils.arcgisUrl.split('/sharing/')[0]
+        };
+
+        if (app.portal.basemapGalleryGroupQuery) {
+          galleryConfig.basemapsGroup = app.portal.basemapGalleryGroupQuery;
+        }
+        else {
+          galleryConfig.showArcGISBasemaps = true;
+        }
+
 				basemapGallery = new BasemapGallery(
-					{
-						showArcGISBasemaps: true,
-						map: app.map
-					},
+					galleryConfig,
 					"basemapGallery"
 				);
 				basemapGallery.startup();
@@ -1331,7 +1342,8 @@ define(["lib-build/tpl!./BuilderView",
 
 					if(app.data.getWebAppData().getGeneralOptions().extentMode == 'customHome' ){
 						setTimeout(function(){
-							_this.initMapExtentSave();
+              if (!_mapExtentSave.initDone)
+                _this.initMapExtentSave();
 						}, 500);
 					}
 
